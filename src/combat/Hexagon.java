@@ -1,3 +1,4 @@
+package combat;
 public class Hexagon {
 	public enum hexType {NORMAL, OBSTACLE, ENEMY, FRIEND};
 	public enum walkable {WALKABLE, DESTRUCTASBLE, INDESTRUCTABLE}
@@ -39,7 +40,4 @@ public class Hexagon {
 	public void setContent(gameObject content) {
 		this.content = content;
 	}
-	
-	
-
 }
