@@ -1,32 +1,53 @@
 package combat;
+import characters.Creatures.TypeOfDamage;
 
 import java.util.Random;
 
+
+
+
 public class DmgCalculation {
-	int[] totalDmg = new int[3]; // [physical, magic, void]
-	Random rand = new Random();
+	static private int[] totalDmg = new int[3]; // [physical, magic, void]
+	static private Random rand = new Random();
 
+	
+	public static void main(String[] args){
+	
+		DmgCalculation.damageCalculator(101, 100, 499, 10, TypeOfDamage.PHYSICALDMG);
+		System.out.println("PHY: " + totalDmg[0] + ", MAG: " + totalDmg[1] + ", VOID: " + totalDmg[2]);
+	}
+	
+	
+	
 
-	int[] damageCalculator(int maxDmg, int minDmg, int armour, int magicRes, TypeOfDamage dmgType){
-
+	public static int[] damageCalculator(int maxDmg, int minDmg, int armour, int magicRes, TypeOfDamage dmgType){
+		int temp;
+		
 		switch(dmgType){
 		case PHYSICALDMG:
-			totalDmg[0]=physicalVsArmour(rand.nextInt(maxDmg-minDmg) + minDmg+1, armour);
+			System.out.println("PSYC");
+			totalDmg[0]=physicalVsArmour(rand.nextInt(maxDmg-minDmg+1) + minDmg, armour);
 			totalDmg[1]=0;
 			totalDmg[2]=0;
+			break;
 
 		case MAGICDMG:
+			System.out.println("MAGICCCCC");
 			totalDmg[0]=0;
-			totalDmg[1]=magicVsMagicRes(rand.nextInt(maxDmg-minDmg) + minDmg+1, magicRes);
+			totalDmg[1]=magicVsMagicRes(rand.nextInt(maxDmg-minDmg+1) + minDmg, magicRes);
 			totalDmg[2]=0;
+			break;
 
 		case VOIDDMG:
+			System.out.println("VOIIIIIIID");
 			totalDmg[0]=0;
 			totalDmg[1]=0;
-			totalDmg[2]=(rand.nextInt(maxDmg-minDmg) + minDmg+1);
+			totalDmg[2]=(rand.nextInt(maxDmg-minDmg+1) + minDmg);
+			break;
 
 		case HYBRIDDMG:
-			int temp, physical, magic;
+			System.out.println("HYPE!");
+			int physical, magic;
 			temp=rand.nextInt(maxDmg-minDmg) +1;
 			physical=rand.nextInt(temp+1);
 			magic=((temp-physical));
@@ -34,9 +55,11 @@ public class DmgCalculation {
 			totalDmg[0]=physicalVsArmour(physical+minDmg/2, armour);
 			totalDmg[1]=magicVsMagicRes(magic+minDmg/2, magicRes);
 			totalDmg[2]=0;
+			break;
 
 		case RANDOMDMG:
-			int temp, physicalDmg, magicDmg, voidDmg;
+			System.out.println("RANDOM");
+			int physicalDmg, magicDmg, voidDmg;
 			temp=rand.nextInt(3);
 			if(temp==0){
 				temp=rand.nextInt(maxDmg+1-minDmg)+minDmg;
@@ -68,83 +91,88 @@ public class DmgCalculation {
 				totalDmg[0]=physicalVsArmour(physicalDmg, armour);
 				totalDmg[1]=magicVsMagicRes(temp, magicRes);
 			}
+			break;
 		}
 		return totalDmg;
 	}
 
-	int physicalVsArmour(int unReducedDmg, int armour){
+	static int physicalVsArmour(int unReducedDmg, int armour){
 		if (armour >= 500){
-			return (int) (unReducedDmg*(0.76));
+			return (int) (unReducedDmg*(0.24));
 		}
 		else if(armour <= 10) {
-			return (unReducedDmg*calculatArmorTen(armour));
+			return (int) (unReducedDmg*(1-calculatArmorTen(armour)));
 		} 
 		else if(armour <= 30) {
-			return (unReducedDmg*calculatArmorThirty(armour));
+			return (int) (unReducedDmg*(1-calculatArmorThirty(armour)));
 		}
 		else if(armour <= 60) {
-			return (unReducedDmg*calculatArmorSixty(armour));
+			return (int) (unReducedDmg*(1-calculatArmorSixty(armour)));
 		}
 		else if(armour <= 120) {
-			return (unReducedDmg*calculatArmorHundredTwenty(armour));
+			return (int) (unReducedDmg*(1-calculatArmorHundredTwenty(armour)));
 		}
 		else if(armour <= 220) {
-			return (unReducedDmg*calculatArmorTwoHundredTwenty(armour));
+			return (int) (unReducedDmg*(1-calculatArmorTwoHundredTwenty(armour)));
 		}
 		else if(armour <= 320) {
-			return (unReducedDmg*calculatArmorTreHundredTwenty(armour));
+			return (int) (unReducedDmg*(1-calculatArmorTreHundredTwenty(armour)));
 		}
 		else if(armour < 500) {
-			return (unReducedDmg*calculatArmorFiveHundred(armour));
+			return (int) (unReducedDmg*(1-calculatArmorFiveHundred(armour)));
 		}
 		return unReducedDmg;
 	}
 
 	// 10 Armour = 5% reduction
-	int calculatArmorTen(int armour){
-		return (int) (armour*0.5/100);
+	static double calculatArmorTen(int armour){
+		return (armour*0.5/100);
 	}
 
 	// 30 Armour = 13% reduction
-	int calculatArmorThirty(int armour){
-		return (int) (calculatArmorTen(10) + (armour-10)*0.4/100);
+	static double calculatArmorThirty(int armour){
+		return (calculatArmorTen(10) + (armour-10)*0.4/100);
 	}
 
 	// 60 Armour = 22% reduction
-	int calculatArmorSixty(int armour){
-		return (int) (calculatArmorThirty(30) + (armour-30)*0.3/100);
+	static double calculatArmorSixty(int armour){
+		return (calculatArmorThirty(30) + (armour-30)*0.3/100);
 	}
 
 	// 120 Armour = 37% reduction
-	int calculatArmorHundredTwenty(int armour){
-		return (int) (calculatArmorSixty(60) + (armour-60)*0.25/100);
+	static double calculatArmorHundredTwenty(int armour){
+		return (calculatArmorSixty(60) + (armour-60)*0.25/100);
 	}
 
 	// 220 Armour = 57% reduction
-	int calculatArmorTwoHundredTwenty(int armour){
-		return (int) (calculatArmorHundredTwenty(120) + (armour-120)*0.20/100);
+	static double calculatArmorTwoHundredTwenty(int armour){
+		return (calculatArmorHundredTwenty(120) + (armour-120)*0.20/100);
 	}
 
 	// 320 Armour = 67% reduction
-	int calculatArmorTreHundredTwenty(int armour){
-		return (int) (calculatArmorTwoHundredTwenty(220) + (armour-220)*0.10/100);
+	static double calculatArmorTreHundredTwenty(int armour){
+		return (calculatArmorTwoHundredTwenty(220) + (armour-220)*0.10/100);
 	}
 
 	// 500 Armour = 76% reduction
-	int calculatArmorFiveHundred(int armour){
-		return (int) (calculatArmorTreHundredTwenty(320) + (armour-320)*0.10/100);
+	static double calculatArmorFiveHundred(int armour){
+		return (calculatArmorTreHundredTwenty(320) + (armour-320)*0.05/100);
 	}
 
 
-	int magicVsMagicRes(int unReducedDmg, int magicRes){
-		if (magicRes>=0) {
+	static int magicVsMagicRes(int unReducedDmg, int magicRes){
+		if (magicRes<=0) {
 			return unReducedDmg;
 		}
 		else if (magicRes>75){
 			return (unReducedDmg*(75/100));
 		}
 		else{
-			return (unReducedDmg*(magicRes/100));
+			System.out.println("unReducedDmg: " + unReducedDmg);
+			System.out.println("magicres: " + magicRes);
+			int temp = ((100-magicRes)*unReducedDmg/100);
+			System.out.println("temp: " + temp);
+			return temp;
 		}
 	}
 

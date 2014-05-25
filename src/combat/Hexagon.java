@@ -1,4 +1,6 @@
 package combat;
+import characters.gameObject;
+
 public class Hexagon {
 	public enum hexType {NORMAL, OBSTACLE, ENEMY, FRIEND};
 	public enum walkable {WALKABLE, DESTRUCTASBLE, INDESTRUCTABLE}

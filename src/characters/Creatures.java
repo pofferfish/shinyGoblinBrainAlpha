@@ -1,8 +1,5 @@
 package characters;
 
-import combat.NORMAL;
-import combat.enum;
-
 public class Creatures {
 	public enum TypeOfDamage{PHYSICALDMG, MAGICDMG, HYBRIDDMG, VOIDDMG, RANDOMDMG};
 	
