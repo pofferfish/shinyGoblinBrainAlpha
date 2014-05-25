@@ -1,45 +1,36 @@
 package combat;
-import characters.gameObject;
+import java.util.List;
+import characters.*;
 
 public class Hexagon {
-	public enum hexType {NORMAL, OBSTACLE, ENEMY, FRIEND};
-	public enum walkable {WALKABLE, DESTRUCTASBLE, INDESTRUCTABLE}
 	
-	private hexType type;
-	private boolean destructable;
-	private gameObject content;
+	private boolean walkable;
 	
-	public Hexagon(hexType type, boolean destructable, gameObject containedObject){
-		this.type = type;
-		this.destructable = destructable;
-		this.setContent(containedObject);
+	private List<GameEntity> pileOfDead;
+	private GameEntity entity;
+	private List<TrapObject> traps;
+	
+	public Hexagon(Creatures entity){
+		setEntity(entity);
 	}
 	
-	public Hexagon(hexType type, boolean destructable){
-		this.type = type;
-		this.destructable = destructable;
-		this.setContent(null);
+	public Hexagon(SolidObject entity){
+		setEntity(entity);
 	}
 	
-	public hexType getType(){
-		return this.type;
-	}
-	public void setType(hexType type){
-		this.type = type;
+	public Hexagon(TrapObject trap){
+		traps.add(trap);
+		this.walkable = true;
 	}
 	
-	public boolean getDestructable(){
-		return this.destructable;
+	public Hexagon(){
+		this.walkable = true;
 	}
-	public void setDestructable(boolean destructable){
-		this.destructable = destructable;
+	
+	private void setEntity(GameEntity entity){
+		this.entity = entity;
+		walkable = false;
 	}
 
-	public gameObject getContent() {
-		return content;
-	}
 
-	public void setContent(gameObject content) {
-		this.content = content;
-	}
 }

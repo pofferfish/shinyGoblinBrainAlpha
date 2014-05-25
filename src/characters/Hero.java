@@ -1,5 +1,5 @@
 package characters;
 
-public class Hero {
+public class Hero extends GameEntity {
 
 }

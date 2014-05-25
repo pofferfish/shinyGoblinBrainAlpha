@@ -1,11 +1,14 @@
 package characters;
 
-public class Creatures {
+public class Creatures extends GameEntity{
 	public enum TypeOfDamage{PHYSICALDMG, MAGICDMG, HYBRIDDMG, VOIDDMG, RANDOMDMG};
 	
 	private TypeOfDamage dmgType;
 	
 	private int HP;
+	
+	private int maxAmount;
+	private int currentAmount;
 	
 	private int maxHP;
 	private int currentMaxHP;
@@ -20,7 +23,6 @@ public class Creatures {
 	
 	
 	
-	void Creature(TypeOfDamage dmgType){
-		this.dmgType = dmgType;
+	void Creature(){
 	}
 }

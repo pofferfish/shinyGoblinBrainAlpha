@@ -8,7 +8,7 @@ public class CombatBoard {
 	public CombatBoard(int width, int height){
 		map = new Hexagon[width][height];
 	}
-	
+	/*
 	int[] pos = {x,y}
 	
 	TopLeft = {x+1, y}
@@ -17,7 +17,7 @@ public class CombatBoard {
 	Right = {x, y+1}
 	BotLeft = {x-1, y}
 	BotRight = {x-1, y+1}
-	
+	*/
 	
 	
 	
