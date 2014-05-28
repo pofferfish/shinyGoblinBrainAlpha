@@ -1,7 +1,8 @@
 package characters;
 
-public class Creatures extends GameEntity{
+public class Creature extends GameEntity{
 	public enum TypeOfDamage{PHYSICALDMG, MAGICDMG, HYBRIDDMG, VOIDDMG, RANDOMDMG};
+	public enum race{ORC, VOID, RANDOM, HUMAN, ELF, ANIMAL, DEMON, ANGLE, DRAGON, ILLUSION, UNDEAD};
 	
 	private TypeOfDamage dmgType;
 	
@@ -21,8 +22,15 @@ public class Creatures extends GameEntity{
 	
 	private int initiative;
 	
+	private int currentHappiness;
+	private int happiness;
 	
+	private int movement;
+	private boolean ranged;
+
+	private race creaturType;
+
 	
-	void Creature(){
+	public Creature(){
 	}
 }

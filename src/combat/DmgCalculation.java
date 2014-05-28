@@ -1,5 +1,5 @@
 package combat;
-import characters.Creatures.TypeOfDamage;
+import characters.Creature.TypeOfDamage;
 
 import java.util.Random;
 

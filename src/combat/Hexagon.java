@@ -10,7 +10,7 @@ public class Hexagon {
 	private GameEntity entity;
 	private List<TrapObject> traps;
 	
-	public Hexagon(Creatures entity){
+	public Hexagon(Creature entity){
 		setEntity(entity);
 	}
 	

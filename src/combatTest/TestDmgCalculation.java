@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import combat.DmgCalculation;
 
-import characters.Creatures.TypeOfDamage;
+import characters.Creature.TypeOfDamage;
 
 /**
  * @author Pofferfish
@@ -50,7 +50,7 @@ public class TestDmgCalculation {
 	}
 
 	/**
-	 * Test method for {@link combat.DmgCalculation#damageCalculator(int, int, int, int, characters.Creatures.TypeOfDamage)}.
+	 * Test method for {@link combat.DmgCalculation#damageCalculator(int, int, int, int, characters.Creature.TypeOfDamage)}.
 	 */
 	@Test
 	public void testDamageCalculator() {
