@@ -10,19 +10,19 @@ public class DmgCalculation {
 	static private int[] totalDmg = new int[3]; // [physical, magic, void]
 	static private Random rand = new Random();
 
-	
+
 	public static void main(String[] args){
-	
+
 		DmgCalculation.damageCalculator(101, 100, 499, 10, TypeOfDamage.PHYSICALDMG);
 		System.out.println("PHY: " + totalDmg[0] + ", MAG: " + totalDmg[1] + ", VOID: " + totalDmg[2]);
 	}
-	
-	
-	
+
+
+
 
 	public static int[] damageCalculator(int maxDmg, int minDmg, int armour, int magicRes, TypeOfDamage dmgType){
 		int temp;
-		
+
 		switch(dmgType){
 		case PHYSICALDMG:
 			System.out.println("PSYC");
@@ -176,4 +176,72 @@ public class DmgCalculation {
 		}
 	}
 
+	static int amountOfDead(int dmgDone, int currentHp, int maxHp){
+		int tempAmount = 0;
+		if(dmgDone<currentHp) return 0;
+
+		dmgDone=dmgDone-currentHp;
+		tempAmount=dmgDone/maxHp;
+
+		return (tempAmount + 1);
+	}
+	
+	//borde returna??? dmgMin och dmgMax inehåller värdena för maxiamla skadan samt minimala skadan för varje typ av skada.
+	public static int damageInterval(int maxDmg, int minDmg, int armour, int magicRes, TypeOfDamage dmgType){
+		int dmgMin, dmgMax;
+
+		switch(dmgType){
+		case PHYSICALDMG:
+			System.out.println("PSYC");
+			dmgMin=physicalVsArmour(minDmg, armour);
+			dmgMax=physicalVsArmour(maxDmg, armour);
+			break;
+
+		case MAGICDMG:
+			System.out.println("MAGICCCCC");
+			dmgMin=magicVsMagicRes(minDmg, magicRes);
+			dmgMax=magicVsMagicRes(maxDmg, magicRes);
+			break;
+
+		case VOIDDMG:
+			System.out.println("VOIIIIIIID");
+			dmgMin=minDmg;
+			dmgMax=maxDmg;
+			break;
+
+		case HYBRIDDMG:
+			System.out.println("HYPE!");
+			int physicalReduct;
+			
+			physicalReduct=physicalVsArmour(100, armour);
+			if(physicalReduct>magicRes){
+				dmgMin=(physicalVsArmour((maxDmg-minDmg)+minDmg/2, armour)+magicVsMagicRes(minDmg/2, magicRes));
+				dmgMax=(magicVsMagicRes((maxDmg-minDmg)+minDmg/2, magicRes)+physicalVsArmour(minDmg/2, armour));
+				}
+			else{
+				dmgMin=(magicVsMagicRes((maxDmg-minDmg)+minDmg/2, magicRes)+physicalVsArmour(minDmg/2, armour));
+				dmgMax=(physicalVsArmour((maxDmg-minDmg)+minDmg/2, armour)+magicVsMagicRes(minDmg/2, magicRes));
+			}
+			break;
+
+		case RANDOMDMG:
+			System.out.println("RANDOM");
+			dmgMax=maxDmg;
+			int physicalDmg, magicDmg;
+			
+			physicalDmg=physicalVsArmour(minDmg, armour);
+			magicDmg=magicVsMagicRes(minDmg, magicRes);
+			
+			if(physicalDmg<=magicDmg){
+				dmgMin=physicalDmg;
+			}
+			else{
+				dmgMin=magicDmg;
+			}
+			break;
+		}
+		return 0;
+	}
+	
+	
 }
