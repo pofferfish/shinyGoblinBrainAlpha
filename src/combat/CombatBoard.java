@@ -1,5 +1,7 @@
 package combat;
 
+import characters.GameEntity;
+
 
 public class CombatBoard {
 	
@@ -7,6 +9,15 @@ public class CombatBoard {
 	
 	public CombatBoard(int width, int height){
 		map = new Hexagon[width][height];
+	}
+	
+	
+	public void move(Cordinate currentPosition, Cordinate newPosition){
+		Hexagon currentHexagon  = map[currentPosition.getX()][currentPosition.getY()];
+		Hexagon newHexagon = map[newPosition.getX()][newPosition.getY()];
+		
+		GameEntity entity = currentHexagon.removeEntity();
+		newHexagon.setEntity(entity);
 	}
 	/*
 	int[] pos = {x,y}

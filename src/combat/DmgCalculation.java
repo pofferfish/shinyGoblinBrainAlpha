@@ -17,9 +17,6 @@ public class DmgCalculation {
 		System.out.println("PHY: " + totalDmg[0] + ", MAG: " + totalDmg[1] + ", VOID: " + totalDmg[2]);
 	}
 
-
-
-
 	public static int[] damageCalculator(int maxDmg, int minDmg, int armour, int magicRes, TypeOfDamage dmgType){
 		int temp;
 
@@ -241,7 +238,5 @@ public class DmgCalculation {
 			break;
 		}
 		return 0;
-	}
-	
-	
+	}	
 }

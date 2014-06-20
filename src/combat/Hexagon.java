@@ -27,6 +27,10 @@ public class Hexagon {
 		this.walkable = true;
 	}
 
+	public boolean isWalkable(){
+		return this.walkable;
+	}
+	
 	/**
 	 * Is used to remove a creature from the hexagon when it
 	 * is to be moved to another hexagon.
