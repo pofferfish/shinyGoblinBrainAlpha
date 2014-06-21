@@ -6,9 +6,23 @@ import characters.GameEntity;
 public class CombatBoard {
 	
 	private Hexagon[][] map;
+	private int width;
+	private int height;
 	
 	public CombatBoard(int width, int height){
 		map = new Hexagon[width][height];
+		
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++){
+				map[i][j] = new Hexagon();
+			}
+		}
+		
+		//set out creatures and stuff
+		
+		//map[0][0] = new Hexagon(dinosaur);
+		
+		
 	}
 	
 	
@@ -19,6 +33,7 @@ public class CombatBoard {
 		GameEntity entity = currentHexagon.removeEntity();
 		newHexagon.setEntity(entity);
 	}
+	
 	/*
 	int[] pos = {x,y}
 	
